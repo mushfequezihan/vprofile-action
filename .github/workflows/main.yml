@@ -20,7 +20,7 @@ jobs:
 
       #setup java 11 for sonar
       - name: setup java 11
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin' #check 
           java-version: '11'
