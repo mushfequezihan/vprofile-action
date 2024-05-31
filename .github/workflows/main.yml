@@ -37,19 +37,33 @@ jobs:
           mv sonar-scanner-4.7.0.2747-linux sonar-scanner
           export PATH=$PATH:$(pwd)/sonar-scanner/bin
 
+      - name: Run Sonar Scanner
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
+            -Dsonar.host.url=${{ secrets.SONAR_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.sources=src/ \
+            -Dsonar.junit.reportsPath=target/surefire-reports/ \
+            -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+            -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+            -Dsonar.java.binaries=target/test-classes/com/visualpathit/account
 
       #run sonar scanner
-      - name: sonar scanner
-        run: sonar-scanner 
-          -Dsonar.host.url=${{ secrets.SONAR_URL }} 
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} 
-          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} 
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} 
-          -Dsonar.sources=src/ 
-          -Dsonar.junit.reportsPath=target/surefire-reports/ 
-          -Dsonar.jacoco.reportsPath=target/jacoco.exec 
-          -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml 
-          -Dsonar.java.binaries=target/test-classes/com/visualpathit/account
+      #- name: sonar scanner
+      #  run: sonar-scanner 
+      #    -Dsonar.host.url=${{ secrets.SONAR_URL }} 
+      #    -Dsonar.login=${{ secrets.SONAR_TOKEN }} 
+      #    -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} 
+       #   -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} 
+       #   -Dsonar.sources=src/ 
+       #   -Dsonar.junit.reportsPath=target/surefire-reports/ 
+       #   -Dsonar.jacoco.reportsPath=target/jacoco.exec 
+       #   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml 
+       #   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account
 
       #check the quality gate status
       - name: sonarqube quality gate check 
