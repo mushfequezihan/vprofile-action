@@ -27,7 +27,8 @@ jobs:
 
       #setup sonar
       - name: setup sonar scanner
-        uses: warchant/setup-sonar-scanner@v1.1.0
+        if: matrix.os == 'ubuntu-latest' && matrix.java == '11'
+        uses: warchant/setup-sonar-scanner@master
 
       #run sonar scanner
       - name: sonar scanner
