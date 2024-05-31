@@ -26,9 +26,17 @@ jobs:
           java-version: '11'
 
       #setup sonar
-      - name: setup sonar scanner
-        if: matrix.os == 'ubuntu-latest' && matrix.java == '11'
-        uses: warchant/setup-sonar-scanner@master
+      #- name: setup sonar scanner
+      #  if: matrix.os == 'ubuntu-latest' && matrix.java == '11'
+      #  uses: warchant/setup-sonar-scanner@master
+
+      - name: Install Sonar Scanner
+        run: |
+          wget -O sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+          unzip sonar-scanner.zip
+          mv sonar-scanner-4.7.0.2747-linux sonar-scanner
+          export PATH=$PATH:$(pwd)/sonar-scanner/bin
+
 
       #run sonar scanner
       - name: sonar scanner
