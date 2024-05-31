@@ -27,7 +27,7 @@ jobs:
 
       #setup sonar
       - name: setup sonar scanner
-        uses: warchant/setup-sonar-scanner@v7
+        uses: warchant/setup-sonar-scanner@v1.1.0
 
       #run sonar scanner
       - name: sonar scanner
